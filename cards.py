@@ -57,3 +57,81 @@ def hit():
     cardDeck.pop(j)
     return card
 
+#Round
+print("=== Welcome to BlackJack ===")
+while True:
+    newCards()
+    shuffleCards()
+    dealerHand = dealHand("dealer")
+    print("\nDealer's hand:", end=" ")
+    printHand(dealerHand)
+    print(f"Value: {getHandValue(dealerHand)}\n")
+    hand = dealHand("player")
+    print("Your hand:", end = " ")
+    printHand(hand)
+    print(f"Value: {getHandValue(hand)}")
+    while True:
+        if len(hand) < 5:
+            usrInput = input("Hit, Stand, or Double [or h/s/d for short]: ").lower()
+        else:
+            break
+        print("")
+        if usrInput in ["hit", "h"]:
+            print("Player hit:", end = " ")
+            drawnCard = hit()
+            print("".join(str(item) for item in drawnCard))
+            hand.append(drawnCard)
+            print("Your hand:", end = " ")
+            printHand(hand)
+            print(f"Value: {getHandValue(hand)}")
+            if getHandValue(hand) > 21:
+                print("Bust!")
+                hand = []
+                break
+        elif usrInput in ["stand", "s"]:
+            print(f"Standing on {getHandValue(hand)}")
+            break
+        elif usrInput in ["double", "d"]:
+            print("Player hit:", end=" ")
+            drawnCard = hit()
+            print("".join(str(item) for item in drawnCard))
+            hand.append(drawnCard)
+            print("Your hand:", end=" ")
+            printHand(hand)
+            print(f"Value: {getHandValue(hand)}")
+            if getHandValue() > 21:
+                print("Bust!")
+                hand = []
+            break
+    print("")
+    while True:
+        if len(dealerHand) == 2 and getHandValue(dealerHand) == 17:
+            print("Dealer hand:", end=" ")
+            printHand(dealerHand)
+            print("Standing on soft 17")
+            break
+        elif getHandValue(dealerHand) >= getHandValue(hand) or len(dealerHand) == 5:
+            print("Dealer hand:", end = " ")
+            printHand(dealerHand)
+            print("Dealer stands")
+            print(f"Value: {getHandValue(dealerHand)}\n")
+            break
+        elif getHandValue(dealerHand) > 21:
+            print("Dealer hand:", end=" ")
+            printHand(dealerHand)
+            print("Dealer bust!")
+            dealerHand = []
+            break
+        else:
+            print("Dealer hit:", end = " ")
+            drawnCard = hit()
+            print("".join(str(item) for item in drawnCard))
+            dealerHand.append(drawnCard)
+            print("Dealer hand:", end=" ")
+            printHand(dealerHand)
+            print(f"Value: {getHandValue(dealerHand)}\n")
+    if getHandValue(hand) > getHandValue(dealerHand):
+        print("Player wins!")
+    elif getHandValue(hand) <= getHandValue(dealerHand):
+        print("Dealer wins!")
+    break
