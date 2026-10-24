@@ -141,4 +141,18 @@ while True:
         print("Player wins!")
     elif getHandValue(hand) <= getHandValue(dealerHand):
         print("Dealer wins!")
-    break
+    playAgain = False
+    while True:
+        usrInput = input("Play again [y/n]: ")
+        if usrInput == "y":
+            playAgain = True
+            break
+        elif usrInput == "n":
+            playAgain = False
+            break
+        else:
+            print("\nInvalid input\n")
+    if not playAgain:
+        break
+    else:
+        print("Thank you for playing")
