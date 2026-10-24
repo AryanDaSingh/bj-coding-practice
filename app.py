@@ -1,4 +1,5 @@
 from random import randint
+from time import sleep
 cardDeck = []
 
 def newCards():
@@ -110,6 +111,7 @@ while True:
             break
     print("")
     while True:
+        sleep(1)
         if getHandValue(dealerHand) == 17 and hasAce(dealerHand):
             print("Dealer hand:", end=" ")
             printHand(dealerHand)
