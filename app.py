@@ -63,7 +63,7 @@ def hasAce(hand):
         if "A" in hand[i]:
             return True
 
-#Round
+# Round
 print("=== Welcome to BlackJack ===\n")
 while True:
     newCards()
@@ -139,8 +139,10 @@ while True:
             print(f"Value: {getHandValue(dealerHand)}\n")
     if getHandValue(hand) > getHandValue(dealerHand):
         print("Player wins!")
-    elif getHandValue(hand) <= getHandValue(dealerHand):
+    elif getHandValue(hand) < getHandValue(dealerHand):
         print("Dealer wins!")
+    elif getHandValue(hand) == getHandValue(dealerHand):
+        print("Draw!") # Return bets
     playAgain = False
     while True:
         usrInput = input("Play again [y/n]: ")
