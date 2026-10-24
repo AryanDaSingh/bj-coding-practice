@@ -1,9 +1,7 @@
 from random import randint
 from time import sleep
-cardDeck = []
 
-def newCards():
-    global cardDeck
+def newCards(cardDeck):
     cardNum = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"]
     cardSuit = ["♠", "♥", "♣", "♦"]
     for num in range(len(cardNum)):
@@ -11,14 +9,12 @@ def newCards():
             arr = [cardNum[num], cardSuit[suit]]
             cardDeck.append(arr)
 
-def shuffleCards():
-    global cardDeck
+def shuffleCards(cardDeck):
     for i in range(len(cardDeck) - 1, 0, -1):
         j = randint(0, i)
         cardDeck[i], cardDeck[j] = cardDeck[j], cardDeck[i]
 
-def dealHand(type):
-    global cardDeck
+def dealHand(cardDeck, type):
     arr = []
     n = 0
     if type == "player":
@@ -51,8 +47,7 @@ def printHand(hand):
         print("".join(str(item) for item in hand[i]), end="; ")
     print("")
 
-def hit():
-    global cardDeck
+def hit(cardDeck):
     j = randint(0, len(cardDeck) - 1)
     card = cardDeck[j]
     cardDeck.pop(j)
@@ -64,15 +59,16 @@ def hasAce(hand):
             return True
 
 # Round
+cardDeck = []
 print("=== Welcome to BlackJack ===\n")
 while True:
-    newCards()
-    shuffleCards()
-    dealerHand = dealHand("dealer")
+    newCards(cardDeck)
+    shuffleCards(cardDeck)
+    dealerHand = dealHand(cardDeck, "dealer")
     print("Dealer's hand:", end=" ")
     printHand(dealerHand)
     print(f"Value: {getHandValue(dealerHand)}\n")
-    hand = dealHand("player")
+    hand = dealHand(cardDeck, "player")
     print("Your hand:", end = " ")
     printHand(hand)
     print(f"Value: {getHandValue(hand)}")
@@ -84,7 +80,7 @@ while True:
         print("")
         if usrInput in ["hit", "h"]:
             print("Player hit:", end = " ")
-            drawnCard = hit()
+            drawnCard = hit(cardDeck)
             print("".join(str(item) for item in drawnCard))
             hand.append(drawnCard)
             print("Your hand:", end = " ")
@@ -99,7 +95,7 @@ while True:
             break
         elif usrInput in ["double", "d"]:
             print("Player hit:", end=" ")
-            drawnCard = hit()
+            drawnCard = hit(cardDeck)
             print("".join(str(item) for item in drawnCard))
             hand.append(drawnCard)
             print("Your hand:", end=" ")
@@ -131,7 +127,7 @@ while True:
             break
         else:
             print("Dealer hit:", end = " ")
-            drawnCard = hit()
+            drawnCard = hit(cardDeck)
             print("".join(str(item) for item in drawnCard))
             dealerHand.append(drawnCard)
             print("Dealer hand:", end=" ")
@@ -155,6 +151,5 @@ while True:
         else:
             print("\nInvalid input\n")
     if not playAgain:
-        break
-    else:
         print("Thank you for playing")
+        break
