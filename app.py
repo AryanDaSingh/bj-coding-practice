@@ -64,12 +64,12 @@ def hasAce(hand):
             return True
 
 #Round
-print("=== Welcome to BlackJack ===")
+print("=== Welcome to BlackJack ===\n")
 while True:
     newCards()
     shuffleCards()
     dealerHand = dealHand("dealer")
-    print("\nDealer's hand:", end=" ")
+    print("Dealer's hand:", end=" ")
     printHand(dealerHand)
     print(f"Value: {getHandValue(dealerHand)}\n")
     hand = dealHand("player")
@@ -105,7 +105,7 @@ while True:
             print("Your hand:", end=" ")
             printHand(hand)
             print(f"Value: {getHandValue(hand)}")
-            if getHandValue() > 21:
+            if getHandValue(hand) > 21:
                 print("Bust!")
                 hand = []
             break
