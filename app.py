@@ -117,17 +117,17 @@ while True:
             printHand(dealerHand)
             print("Standing on soft 17")
             break
-        elif getHandValue(dealerHand) >= getHandValue(hand) or len(dealerHand) == 5:
-            print("Dealer hand:", end = " ")
-            printHand(dealerHand)
-            print("Dealer stands")
-            print(f"Value: {getHandValue(dealerHand)}\n")
-            break
         elif getHandValue(dealerHand) > 21:
             print("Dealer hand:", end=" ")
             printHand(dealerHand)
             print("Dealer bust!")
             dealerHand = []
+            break
+        elif getHandValue(dealerHand) >= getHandValue(hand) or len(dealerHand) == 5:
+            print("Dealer hand:", end = " ")
+            printHand(dealerHand)
+            print("Dealer stands")
+            print(f"Value: {getHandValue(dealerHand)}\n")
             break
         else:
             print("Dealer hit:", end = " ")
