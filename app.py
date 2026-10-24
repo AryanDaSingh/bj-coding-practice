@@ -123,7 +123,7 @@ while True:
             print("Dealer bust!")
             dealerHand = []
             break
-        elif getHandValue(dealerHand) >= getHandValue(hand) or len(dealerHand) == 5:
+        elif (getHandValue(dealerHand) >= getHandValue(hand) or len(dealerHand) == 5) and (getHandValue(dealerHand) > 16):
             print("Dealer hand:", end = " ")
             printHand(dealerHand)
             print("Dealer stands")
