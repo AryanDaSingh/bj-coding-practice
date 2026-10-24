@@ -57,6 +57,11 @@ def hit():
     cardDeck.pop(j)
     return card
 
+def hasAce(hand):
+    for i in range(len(hand)):
+        if "A" in hand[i]:
+            return True
+
 #Round
 print("=== Welcome to BlackJack ===")
 while True:
@@ -105,7 +110,7 @@ while True:
             break
     print("")
     while True:
-        if len(dealerHand) == 2 and getHandValue(dealerHand) == 17:
+        if getHandValue(dealerHand) == 17 and hasAce(dealerHand):
             print("Dealer hand:", end=" ")
             printHand(dealerHand)
             print("Standing on soft 17")
