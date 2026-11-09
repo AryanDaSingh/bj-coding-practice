@@ -11,6 +11,19 @@ class Cards
   end
 
   #Methods
+  
+  public
+
+  def self.get_deck # Remove this in production
+    p @@Deck
+  end
+
+  def play_round
+    new_deck
+    shuffle_deck
+  end
+
+  private
 
   def new_deck
     ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"]
@@ -24,9 +37,5 @@ class Cards
 
   def shuffle_deck
     @@Deck.shuffle!
-  end
-
-  def self.get_deck
-    p @@Deck
   end
 end
