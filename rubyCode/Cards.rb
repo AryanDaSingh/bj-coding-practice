@@ -1,13 +1,13 @@
 class Cards
   # Fields
   @@Deck = []
-  @usr_hand = []
-  @dealer_hand = []
   @balance = 0 # To be implemented
 
   # Constructor
   def initialize
     new_deck
+    @usr_hand = []
+    @dealer_hand = []
   end
 
   #Methods
@@ -21,6 +21,9 @@ class Cards
   def play_round
     new_deck
     shuffle_deck
+    deal_hand("p"); deal_hand("d")
+    print "Your hand: "; get_hand("p"); puts ""
+    print "Dealer's hand: "; get_hand("d"); puts ""
   end
 
   private
@@ -37,5 +40,29 @@ class Cards
 
   def shuffle_deck
     @@Deck.shuffle!
+  end
+
+  def deal_hand(type)
+    if type == "p"
+      2.times do
+        card = @@Deck.delete_at(rand(@@Deck.length))
+        @usr_hand.push(card)
+      end
+    else
+      card = @@Deck.delete_at(rand(@@Deck.length))
+      @dealer_hand.push(card)
+    end
+  end
+
+  def get_hand(type)
+    if type == "p"
+      @usr_hand.each do |r, s|
+        print "#{r}#{s} "
+      end
+    else
+      @dealer_hand.each do |r, s|
+        print "#{r}#{s} "
+      end
+    end
   end
 end
