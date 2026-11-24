@@ -22,6 +22,7 @@ function displayHand(hand, type) {
     for (let i = 0; i < hand.length; i++) {
         handDisplay += `${hand[i][0]}${hand[i][1]} `;
     }
+    handDisplay += `(${game.handValue(hand)})`
     if (type === "player") {
         playerCards.innerText = handDisplay;
     } else {
@@ -43,6 +44,7 @@ resetDisplayedHands();
 game.dealHands();
 displayHand(game.playerHand, "player");
 displayHand(game.dealerHand, "dealer");
+let playerComplete = false;
 
 // Message box
 const message = document.createElement("div");
@@ -58,6 +60,11 @@ function flashMessage(msg) {
 // Buttons
 const btnContainer = document.createElement("div");
 btnContainer.classList.add("btn-container");
+
+function disableButtons() {
+    btnHit.disabled = true;
+    btnStand.disabled = true;
+}
 
 // Hit button
 const btnHit = document.createElement("button");
@@ -82,7 +89,8 @@ btnHit.addEventListener("click", (e) => {
     }
     canHit = checkForHit(game.playerHand);
     if (!canHit) {
-        e.target.disabled = true;
+        disableButtons();
+        playerComplete = true;
     }
 });
 
@@ -90,6 +98,11 @@ btnHit.addEventListener("click", (e) => {
 const btnStand = document.createElement("button");
 btnStand.innerText = "Stand";
 btnStand.classList.add("stand");
+
+btnStand.addEventListener("click", (e) => {
+    disableButtons();
+    playerComplete = true;
+})
 
 // Rendering
 player.append(playerCards);
