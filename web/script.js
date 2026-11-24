@@ -49,13 +49,13 @@ let playerComplete = false;
 // Message box
 const message = document.createElement("div");
 message.innerText = "Click a button below to perform an action";
-function flashMessage(msg) {
-    const prev = message.innerText;
-    setTimeout(() => {
-        message.innerText = prev;
-    }, 1000)
-    message.innerText = msg;
-}
+// function flashMessage(msg) {
+//     const prev = message.innerText;
+//     setTimeout(() => {
+//         message.innerText = prev;
+//     }, 1000)
+//     message.innerText = msg;
+// }
 
 // Buttons
 const btnContainer = document.createElement("div");
@@ -118,7 +118,10 @@ function dealerPlay() {
             dealerComplete = true;
         }
     }
-    console.log(checkWin());
+    setTimeout(() => {
+        message.innerText = "Click refresh to play again"
+    }, 1500);
+    message.innerText = checkWin();
 }
 
 // Check for win
