@@ -55,6 +55,10 @@ function flashMessage(msg) {
     message.innerText = msg;
 }
 
+// Buttons
+const btnContainer = document.createElement("div");
+btnContainer.classList.add("btn-container");
+
 // Hit button
 const btnHit = document.createElement("button");
 btnHit.innerText = "Hit";
@@ -78,16 +82,22 @@ btnHit.addEventListener("click", (e) => {
     }
     canHit = checkForHit(game.playerHand);
     if (!canHit) {
-        flashMessage("Player bust!");
         e.target.disabled = true;
     }
 });
 
+// Stand button
+const btnStand = document.createElement("button");
+btnStand.innerText = "Stand";
+btnStand.classList.add("stand");
+
 // Rendering
 player.append(playerCards);
 dealer.append(dealerCards);
+btnContainer.append(btnHit);
+btnContainer.append(btnStand);
 display.append(player);
 display.append(dealer);
 display.append(message);
-display.append(btnHit);
+display.append(btnContainer);
 root.append(display);
