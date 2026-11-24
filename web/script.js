@@ -61,20 +61,15 @@ function flashMessage(msg) {
 const btnContainer = document.createElement("div");
 btnContainer.classList.add("btn-container");
 
-function disableButtons() {
-    btnHit.disabled = true;
-    btnStand.disabled = true;
-}
-
 // Hit button
 const btnHit = document.createElement("button");
 btnHit.innerText = "Hit";
 btnHit.classList.add("hit");
 
 function checkForHit(hand) {
-    let playerHandSize = game.handSize(hand);
+    let handSize = game.handSize(hand);
     let handValue = game.handValue(hand);
-    if (playerHandSize > 5 || handValue >= 21) {
+    if ((handSize >= 2 && handSize > 5) || handValue >= 21) {
         return false;
     } else {
         return true;
@@ -89,8 +84,7 @@ btnHit.addEventListener("click", (e) => {
     }
     canHit = checkForHit(game.playerHand);
     if (!canHit) {
-        disableButtons();
-        playerComplete = true;
+        dealerPlay();
     }
 });
 
@@ -100,9 +94,31 @@ btnStand.innerText = "Stand";
 btnStand.classList.add("stand");
 
 btnStand.addEventListener("click", (e) => {
-    disableButtons();
-    playerComplete = true;
+    dealerPlay();
 })
+
+// Dealer logic
+function dealerPlay() {
+    btnHit.disabled = true;
+    btnStand.disabled = true;
+    let dealerComplete = false;
+    while (!dealerComplete) {
+        if (checkForHit(game.dealerHand)) {
+            // Dealer CAN hit
+            if (game.handValue(game.dealerHand) < game.handValue(game.playerHand)) {
+                // Dealer SHOULD hit
+                game.drawCard(game.dealerHand);
+                displayHand(game.dealerHand, "dealer");
+            } else {
+                // Dealer SHOULD stand
+                dealerComplete = true;
+            }
+        } else {
+            // Dealer MUST stand
+            dealerComplete = true;
+        }
+    }
+}
 
 // Rendering
 player.append(playerCards);
