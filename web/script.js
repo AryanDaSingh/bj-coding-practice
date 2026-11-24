@@ -120,6 +120,7 @@ function dealerPlay() {
     }
     setTimeout(() => {
         message.innerText = "Click refresh to play again"
+        btnRefresh.style.display = "block";
     }, 1500);
     message.innerText = checkWin();
 }
@@ -127,18 +128,25 @@ function dealerPlay() {
 // Check for win
 function checkWin() {
     let playerHandValue = game.handValue(game.playerHand);
-    let playerHandSize = game.handSize(game.playerHand);
     let dealerHandValue = game.handValue(game.dealerHand);
-    let dealerHandSize = game.handSize(game.dealerHand);
     // Busts
-    if (playerHandSize > 21) return "Dealer wins!";
-    if (dealerHandSize > 21) return "Player wins!";
+    if (playerHandValue > 21) return "Dealer wins!";
+    if (dealerHandValue > 21) return "Player wins!";
     // Values
     if (playerHandValue > dealerHandValue) return "Player wins!";
     if (playerHandValue < dealerHandValue) return "Dealer wins!";
     // Tiebreaker
     return playerHandSize > dealerHandSize ? "Player wins!" : "Dealer wins!";
 }
+
+// Refresh button
+const btnRefresh = document.createElement("button");
+btnRefresh.innerText = "Refresh";
+btnRefresh.classList.add("refresh");
+btnRefresh.addEventListener("click", (e) => {
+    window.location.reload();
+});
+btnRefresh.style.display = "none";
 
 // Rendering
 player.append(playerCards);
@@ -149,4 +157,5 @@ display.append(player);
 display.append(dealer);
 display.append(message);
 display.append(btnContainer);
+display.append(btnRefresh);
 root.append(display);
