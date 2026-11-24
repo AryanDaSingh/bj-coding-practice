@@ -118,6 +118,23 @@ function dealerPlay() {
             dealerComplete = true;
         }
     }
+    console.log(checkWin());
+}
+
+// Check for win
+function checkWin() {
+    let playerHandValue = game.handValue(game.playerHand);
+    let playerHandSize = game.handSize(game.playerHand);
+    let dealerHandValue = game.handValue(game.dealerHand);
+    let dealerHandSize = game.handSize(game.dealerHand);
+    // Busts
+    if (playerHandSize > 21) return "Dealer wins!";
+    if (dealerHandSize > 21) return "Player wins!";
+    // Values
+    if (playerHandValue > dealerHandValue) return "Player wins!";
+    if (playerHandValue < dealerHandValue) return "Dealer wins!";
+    // Tiebreaker
+    return playerHandSize > dealerHandSize ? "Player wins!" : "Dealer wins!";
 }
 
 // Rendering
